@@ -1,0 +1,18 @@
+{
+  "name": "word-clash-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time 2-4 player Word Clash",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

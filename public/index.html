@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d10">
+  <title>Word Clash — Multiplayer Arena</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand"><div class="logo">⚡</div><div><h1>WORD CLASH</h1><p>MULTIPLAYER WORD BATTLE</p></div></div>
+      <div class="header-actions"><span id="connection" class="connection">Connecting…</span><button id="soundBtn" class="small-btn" type="button">🔊 Sound ON</button></div>
+    </header>
+    <div id="notice" role="status" aria-live="polite" class="notice" hidden></div>
+
+    <section id="home" class="panel">
+      <div class="pill">✦ REAL-TIME MULTIPLAYER</div>
+      <h2>Battle your friends</h2>
+      <p class="subtitle">Create a private room or enter a friend's room code. 2–4 players, one 60-second battle.</p>
+      <label for="yourName">Your name</label>
+      <input id="yourName" maxlength="18" placeholder="Enter your name" autocomplete="nickname">
+      <label for="mode">New room's game mode</label>
+      <select id="mode"><option value="letter">🔤 Starting letter</option><option value="category">🧠 Category challenge</option></select>
+      <button id="createBtn" class="primary-btn full" type="button">CREATE PRIVATE ROOM →</button>
+      <div class="separator"><span>OR JOIN FRIENDS</span></div>
+      <label for="roomCodeInput">6-character room code</label>
+      <div class="inline-actions"><input id="roomCodeInput" maxlength="6" placeholder="E.G. AB3D7K" autocapitalize="characters" spellcheck="false"><button id="joinBtn" class="secondary-btn" type="button">JOIN ROOM</button></div>
+      <p class="hint">Everyone uses their own device. The host picks the game mode and starts the round.</p>
+    </section>
+
+    <section id="lobby" hidden>
+      <div class="panel">
+        <div class="section-title"><div><div class="small-title">PRIVATE ROOM CODE</div><div id="lobbyCode" class="room-code">------</div></div><span class="pill">LOBBY</span></div>
+        <div class="inline-actions"><button id="copyCodeBtn" class="secondary-btn" type="button">COPY CODE</button><button id="copyLinkBtn" class="secondary-btn" type="button">COPY INVITE LINK</button></div>
+        <p id="lobbyMode" class="subtitle">Starting letter</p>
+      </div>
+      <section class="panel"><h2>Players <span id="playerCountText" class="muted">0/4</span></h2><div id="lobbyPlayers" class="players"></div><p id="lobbyHelp" class="hint">Waiting for players…</p><button id="startBtn" class="primary-btn full" type="button">START 60-SECOND ROUND →</button></section>
+      <button id="leaveLobbyBtn" class="text-btn" type="button">← Leave room</button>
+    </section>
+
+    <section id="game" hidden>
+      <div class="section-title"><div><div class="small-title">ROOM</div><div id="gameRoomCode" class="room-code small">------</div></div><span class="pill live"><span class="live-dot"></span> LIVE BATTLE</span></div>
+      <div id="scoreboard" class="scoreboard"></div>
+      <section class="panel timer-panel"><p class="small-title">TIME REMAINING</p><h2 id="timer">01:00</h2><div class="progress-track"><div id="progress" class="progress-bar"></div></div></section>
+      <section class="panel challenge-panel"><p id="challengeLabel" class="small-title">WORDS STARTING WITH</p><div id="challengeValue" class="big-letter">F</div><p class="subtitle">All players can guess simultaneously!</p></section>
+      <form id="wordForm" class="word-form"><label for="wordInput">Your answer</label><div class="input-container"><input id="wordInput" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type a word…" required><button id="submitBtn" class="primary-btn" type="submit">SUBMIT ↗</button></div></form>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+      <section class="panel history-panel"><h3>Your accepted words</h3><div id="wordHistory" class="word-history"><span class="muted">No words yet.</span></div></section>
+      <button id="endBtn" class="text-btn" type="button" hidden>End round (host only)</button>
+    </section>
+
+    <section id="results" class="panel results" hidden><div class="trophy">🏆</div><h2 id="winnerTitle">Round complete!</h2><p id="winnerDetail" class="subtitle">Final scores</p><div id="finalScores"></div><button id="againBtn" class="primary-btn full" type="button">PLAY ANOTHER ROUND →</button><button id="leaveResultsBtn" class="text-btn" type="button">Leave room</button></section>
+    <footer class="footer">WORD CLASH · LIVE EDITION</footer>
+  </main>
+</body>
+</html>
